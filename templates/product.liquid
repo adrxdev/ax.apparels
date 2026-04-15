@@ -1,0 +1,53 @@
+<div class="product-page">
+  <div class="container">
+    <div class="product-layout">
+      
+      <div class="product-images">
+        <div class="main-image">
+          <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title }}" id="mainImage">
+        </div>
+        <div class="thumbnail-grid">
+          {% for image in product.images %}
+            <img src="{{ image | img_url: '150x' }}" alt="{{ product.title }}" class="thumbnail" onclick="changeImage('{{ image | img_url: '800x' }}')">
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="product-details">
+        <h1 class="product-title">{{ product.title }}</h1>
+        <p class="product-price">{{ product.price | money }}</p>
+        
+        <div class="product-description">
+          {{ product.description }}
+        </div>
+
+        <form action="/cart/add" method="post" class="product-form">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          
+          {% unless product.has_only_default_variant %}
+            <div class="product-options">
+              {% for option in product.options_with_values %}
+                <div class="option-group">
+                  <label>{{ option.name }}</label>
+                  <select name="options[{{ option.name }}]">
+                    {% for value in option.values %}
+                      <option value="{{ value }}">{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            </div>
+          {% endunless %}
+
+          <div class="quantity-selector">
+            <label>Quantity</label>
+            <input type="number" name="quantity" value="1" min="1">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">Add to Cart</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

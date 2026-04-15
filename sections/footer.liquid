@@ -1,0 +1,52 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      
+      <div class="footer-column">
+        <h3>{{ section.settings.column_1_title }}</h3>
+        <div class="footer-content">{{ section.settings.column_1_content }}</div>
+      </div>
+
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          {% for link in linklists.footer.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Newsletter</h3>
+        <form action="/contact#newsletter" method="post" class="newsletter-form">
+          <input type="email" name="contact[email]" placeholder="Your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "column_1_title",
+      "label": "Column 1 Title",
+      "default": "About Us"
+    },
+    {
+      "type": "richtext",
+      "id": "column_1_content",
+      "label": "Column 1 Content"
+    }
+  ]
+}
+{% endschema %}

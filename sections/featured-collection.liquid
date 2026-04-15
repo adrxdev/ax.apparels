@@ -1,0 +1,54 @@
+<section class="featured-collection">
+  <div class="container">
+    <h2 class="section-title">{{ section.settings.title }}</h2>
+    
+    <div class="product-grid">
+      {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
+        <div class="product-card">
+          <a href="{{ product.url }}" class="product-image">
+            <img src="{{ product.featured_image | img_url: '600x' }}" alt="{{ product.title }}">
+          </a>
+          <div class="product-info">
+            <h3 class="product-title">
+              <a href="{{ product.url }}">{{ product.title }}</a>
+            </h3>
+            <p class="product-price">{{ product.price | money }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to Show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

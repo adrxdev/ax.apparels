@@ -1,0 +1,70 @@
+<section class="image-with-text">
+  <div class="container">
+    <div class="image-text-grid {% if section.settings.layout == 'text_first' %}reverse{% endif %}">
+      
+      <div class="image-column">
+        <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.title }}">
+      </div>
+
+      <div class="text-column">
+        <h2>{{ section.settings.title }}</h2>
+        <div class="rte">{{ section.settings.text }}</div>
+        {% if section.settings.button_text != blank %}
+          <a href="{{ section.settings.button_link }}" class="btn btn-secondary">
+            {{ section.settings.button_text }}
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with Text",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "image_first", "label": "Image First" },
+        { "value": "text_first", "label": "Text First" }
+      ],
+      "default": "image_first"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Story"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Text"
+    }
+  ]
+}
+{% endschema %}
